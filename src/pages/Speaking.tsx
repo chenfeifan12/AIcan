@@ -4,6 +4,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { useAuthStore } from '../store/useAuthStore';
 import { useProgressStore } from '../store/useProgressStore';
 import { courses, SpeakingContent } from '../data/courses';
+import { showToast } from '../components/common/Toast';
 import { CheckCircle, RotateCcw, Home, Mic, MicOff, Volume2, ArrowRight } from 'lucide-react';
 
 export default function Speaking() {
@@ -112,6 +113,7 @@ export default function Speaking() {
       completeLesson(currentLanguage, currentLesson.id);
       updateCorrectRate(currentLanguage, 'speaking', 80);
       addExperience(currentLesson.expReward);
+      showToast('success', '口语练习完成！继续加油');
       setIsCompleted(true);
     }
   };

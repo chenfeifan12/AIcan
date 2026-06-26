@@ -183,10 +183,10 @@ export default function Learn() {
                     {unit.lessons.map((lesson) => {
                       const isCompleted = progress?.completedLessons.includes(lesson.id);
                       const typeColors = {
-                        vocabulary: 'bg-blue-100 text-blue-600',
-                        grammar: 'bg-purple-100 text-purple-600',
-                        speaking: 'bg-orange-100 text-orange-600',
-                        listening: 'bg-green-100 text-green-600'
+                        vocabulary: 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400',
+                        grammar: 'bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400',
+                        speaking: 'bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400',
+                        listening: 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400'
                       };
                       const typeIcons = {
                         vocabulary: BookOpen,

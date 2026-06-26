@@ -4,6 +4,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { useAuthStore } from '../store/useAuthStore';
 import { useProgressStore } from '../store/useProgressStore';
 import { courses, GrammarContent, GrammarExercise } from '../data/courses';
+import { showToast } from '../components/common/Toast';
 import { CheckCircle, XCircle, ArrowRight, RotateCcw, Home, Brain } from 'lucide-react';
 
 export default function Grammar() {
@@ -37,6 +38,7 @@ export default function Grammar() {
         completeLesson(currentLanguage, currentLesson.id);
         updateCorrectRate(currentLanguage, 'grammar', correctRate);
         addExperience(currentLesson.expReward + (correctRate === 100 ? 10 : 0));
+        showToast('success', `语法练习完成！正确率 ${Math.round(correctRate)}%`);
       }
       setIsCompleted(true);
     }

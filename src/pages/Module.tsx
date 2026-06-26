@@ -4,6 +4,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { useAuthStore } from '../store/useAuthStore';
 import { useProgressStore } from '../store/useProgressStore';
 import { courses, Lesson, Word, VocabularyContent } from '../data/courses';
+import { showToast } from '../components/common/Toast';
 import { Volume2, CheckCircle, XCircle, ArrowRight, RotateCcw, Home } from 'lucide-react';
 
 export default function Vocabulary() {
@@ -38,6 +39,7 @@ export default function Vocabulary() {
         completeLesson(currentLanguage, currentLesson.id);
         updateCorrectRate(currentLanguage, 'vocabulary', correctRate);
         addExperience(currentLesson.expReward + (correctRate === 100 ? 10 : 0));
+        showToast('success', `完成！掌握 ${knownWords.length}/${words.length} 个单词`);
       }
       setIsCompleted(true);
     }
@@ -158,32 +160,31 @@ export default function Vocabulary() {
       {/* Flash Card */}
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div 
-          className={`relative cursor-pointer perspective-1000 ${isFlipped ? 'flipped' : ''}`}
+          className={`card-flip ${isFlipped ? 'flipped' : ''}`}
           onClick={() => setIsFlipped(!isFlipped)}
         >
-          <div className={`card p-8 min-h-64 flex flex-col items-center justify-center transition-all duration-500 ${isFlipped ? 'bg-primary text-white' : 'bg-white dark:bg-primary-light'}`}>
-            {!isFlipped ? (
-              <>
-                <button
-                  onClick={(e) => { e.stopPropagation(); handleSpeak(currentWord.term); }}
-                  className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                >
-                  <Volume2 className={`w-6 h-6 ${speaking === currentWord.term ? 'text-accent' : 'text-gray-400'}`} />
-                </button>
-                <p className="text-4xl font-bold text-primary dark:text-white mb-4">{currentWord.term}</p>
-                <p className="text-gray-400 text-sm">点击卡片查看释义</p>
-              </>
-            ) : (
-              <>
-                <p className="text-3xl font-bold text-white mb-4">{currentWord.translation}</p>
-                <p className="text-white/60 mb-2">/{currentWord.pronunciation}/</p>
-                <div className="mt-4 p-4 bg-white/10 rounded-xl w-full">
-                  <p className="text-white/80 text-sm mb-1">例句</p>
-                  <p className="text-white">{currentWord.example}</p>
-                  <p className="text-white/60 text-sm mt-1">{currentWord.exampleTranslation}</p>
-                </div>
-              </>
-            )}
+          <div className="card-flip-inner">
+            {/* Front */}
+            <div className="card-flip-front shadow-lg">
+              <button
+                onClick={(e) => { e.stopPropagation(); handleSpeak(currentWord.term); }}
+                className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+              >
+                <Volume2 className={`w-6 h-6 ${speaking === currentWord.term ? 'text-accent' : 'text-gray-400'}`} />
+              </button>
+              <p className="text-4xl font-bold text-primary dark:text-white mb-4">{currentWord.term}</p>
+              <p className="text-gray-400 text-sm">点击卡片查看释义</p>
+            </div>
+            {/* Back */}
+            <div className="card-flip-back shadow-lg">
+              <p className="text-3xl font-bold text-white mb-4">{currentWord.translation}</p>
+              <p className="text-white/60 mb-2">/{currentWord.pronunciation}/</p>
+              <div className="mt-4 p-4 bg-white/10 rounded-xl w-full">
+                <p className="text-white/80 text-sm mb-1">例句</p>
+                <p className="text-white">{currentWord.example}</p>
+                <p className="text-white/60 text-sm mt-1">{currentWord.exampleTranslation}</p>
+              </div>
+            </div>
           </div>
         </div>
 

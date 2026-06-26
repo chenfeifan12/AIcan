@@ -11,7 +11,7 @@ export default function Sidebar() {
   const { language } = useParams<{ language?: string }>();
   const { selectedLanguage } = useLanguage();
 
-  const currentLanguage = language || selectedLanguage?.code;
+  const currentLanguage = language || selectedLanguage?.code || 'english';
   const currentCourse = courses.find(c => c.language === currentLanguage);
 
   const mainNav = [

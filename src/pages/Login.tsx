@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../store/useAuthStore';
+import { showToast } from '../components/common/Toast';
 import { Mail, Lock, Eye, EyeOff, Loader2 } from 'lucide-react';
 
 export default function Login() {
@@ -35,6 +36,7 @@ export default function Login() {
     try {
       const success = await login(email, password);
       if (success) {
+        showToast('success', '登录成功！欢迎回来');
         navigate('/');
       } else {
         setError('登录失败，请检查邮箱和密码');

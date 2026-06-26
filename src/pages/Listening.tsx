@@ -4,6 +4,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { useAuthStore } from '../store/useAuthStore';
 import { useProgressStore } from '../store/useProgressStore';
 import { courses, ListeningContent, ListeningQuestion } from '../data/courses';
+import { showToast } from '../components/common/Toast';
 import { CheckCircle, XCircle, RotateCcw, Home, Headphones, Play, Volume2, ArrowRight } from 'lucide-react';
 
 export default function Listening() {
@@ -38,6 +39,7 @@ export default function Listening() {
         completeLesson(currentLanguage, currentLesson.id);
         updateCorrectRate(currentLanguage, 'listening', correctRate);
         addExperience(currentLesson.expReward + (correctRate === 100 ? 10 : 0));
+        showToast('success', `听力训练完成！正确率 ${Math.round(correctRate)}%`);
       }
       setIsCompleted(true);
     }

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../store/useAuthStore';
+import { showToast } from '../components/common/Toast';
 import { Mail, Lock, User, Eye, EyeOff, Loader2, Check } from 'lucide-react';
 
 export default function Register() {
@@ -51,6 +52,7 @@ export default function Register() {
     try {
       const success = await register(email, nickname, password);
       if (success) {
+        showToast('success', '注册成功！欢迎加入 LinguaFlow');
         navigate('/');
       } else {
         setError('注册失败，请稍后重试');
