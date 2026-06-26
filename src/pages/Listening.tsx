@@ -8,7 +8,7 @@ import { showToast } from '../components/common/Toast';
 import { CheckCircle, XCircle, RotateCcw, Home, Headphones, Play, Volume2, ArrowRight } from 'lucide-react';
 
 export default function Listening() {
-  const { language, module } = useParams<{ language: string; module: string }>();
+  const { language } = useParams<{ language: string }>();
   const { selectedLanguage } = useLanguage();
   const { addExperience } = useAuthStore();
   const { completeLesson, updateCorrectRate } = useProgressStore();
@@ -86,7 +86,7 @@ export default function Listening() {
     setShowTranscript(false);
   };
 
-  if (!course || module !== 'listening') {
+  if (!course) {
     return <Navigate to={`/learn/${currentLanguage}`} replace />;
   }
 

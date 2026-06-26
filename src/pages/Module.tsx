@@ -8,7 +8,7 @@ import { showToast } from '../components/common/Toast';
 import { Volume2, CheckCircle, XCircle, ArrowRight, RotateCcw, Home } from 'lucide-react';
 
 export default function Vocabulary() {
-  const { language, module } = useParams<{ language: string; module: string }>();
+  const { language } = useParams<{ language: string }>();
   const { selectedLanguage } = useLanguage();
   const { addExperience } = useAuthStore();
   const { completeLesson, updateCorrectRate } = useProgressStore();
@@ -82,8 +82,8 @@ export default function Vocabulary() {
     setIsCompleted(false);
   };
 
-  if (!course || module !== 'vocabulary') {
-    return <Navigate to={`/learn/${currentLanguage}`} replace />;
+  if (!course) {
+    return <Navigate to="/" replace />;
   }
 
   if (words.length === 0) {
