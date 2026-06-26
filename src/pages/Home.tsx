@@ -264,7 +264,7 @@ export default function Home() {
 }
 
 function LanguageCard({ language, course, index, onSelect }: { 
-  language: { code: string; name: string; flag: string; nativeName: string }; 
+  language: { code: string; name: string; flag: string; color: string }; 
   course?: typeof courses[0];
   index: number;
   onSelect: () => void;
@@ -281,7 +281,7 @@ function LanguageCard({ language, course, index, onSelect }: {
         </span>
         <div>
           <h3 className="font-bold text-xl text-primary dark:text-white">{language.name}</h3>
-          <p className="text-sm text-gray-500">{language.nativeName}</p>
+          <p className="text-sm text-gray-500">{language.code}</p>
         </div>
       </div>
       

@@ -1,10 +1,11 @@
 import { createContext, useContext, useState, useCallback, ReactNode } from 'react';
+import { getAvailableLanguages } from '../data/courses';
 
 interface Language {
-  code: 'english' | 'japanese' | 'korean';
+  code: string;
   name: string;
   flag: string;
-  nativeName: string;
+  color: string;
 }
 
 interface LanguageContextType {
@@ -13,11 +14,7 @@ interface LanguageContextType {
   availableLanguages: Language[];
 }
 
-const availableLanguages: Language[] = [
-  { code: 'english', name: '英语', flag: '🇬🇧', nativeName: 'English' },
-  { code: 'japanese', name: '日语', flag: '🇯🇵', nativeName: '日本語' },
-  { code: 'korean', name: '韩语', flag: '🇰🇷', nativeName: '한국어' },
-];
+const availableLanguages: Language[] = getAvailableLanguages();
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 

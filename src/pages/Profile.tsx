@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useAuthStore } from '../store/useAuthStore';
 import { useProgressStore } from '../store/useProgressStore';
 import { achievements, rarityColors } from '../data/achievements';
-import { courses } from '../data/courses';
+import { courses, getAvailableLanguages } from '../data/courses';
 import ProgressRing from '../components/common/ProgressRing';
 import ProgressBar from '../components/common/ProgressBar';
 import { 
@@ -203,7 +203,9 @@ export default function Profile() {
         {activeTab === 'stats' ? (
           /* Learning Records */
           <div className="space-y-4">
-            {courses.map(course => {
+            {getAvailableLanguages().map(lang => {
+              const course = courses.find(c => c.language === lang.code);
+              if (!course) return null;
               const courseProgress = progress[course.language];
               const completedLessons = courseProgress?.completedLessons?.length || 0;
               const totalLessons = course.units.reduce((acc, u) => acc + u.lessons.length, 0);
