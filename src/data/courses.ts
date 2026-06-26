@@ -81,7 +81,7 @@ function genCourse(i:number): Course {
   };
 }
 
-const TOTAL = 500000;
+const TOTAL = 100000000;
 
 // Lazy course array via Proxy
 const cache = new Map<number, Course>();
