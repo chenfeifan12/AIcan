@@ -2,7 +2,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useAuthStore } from '../../store/useAuthStore';
 import { useProgressStore } from '../../store/useProgressStore';
 import { Flame, Bell, User, LogOut, Menu, X } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 export default function Header() {
   const { user, isAuthenticated, logout } = useAuthStore();
@@ -10,6 +10,23 @@ export default function Header() {
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [notificationOpen, setNotificationOpen] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
+
+  const notifRef = useRef<HTMLDivElement>(null);
+  const userMenuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (notifRef.current && !notifRef.current.contains(e.target as Node)) {
+        setNotificationOpen(false);
+      }
+      if (userMenuRef.current && !userMenuRef.current.contains(e.target as Node)) {
+        setUserMenuOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const isHome = location.pathname === '/';
 
@@ -78,7 +95,7 @@ export default function Header() {
                 </div>
 
                 {/* Notification Bell */}
-                <div className="relative">
+                <div className="relative" ref={notifRef}>
                   <button
                     onClick={() => setNotificationOpen(!notificationOpen)}
                     className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-primary-light transition-colors relative"
@@ -103,8 +120,11 @@ export default function Header() {
                 </div>
 
                 {/* User Menu */}
-                <div className="relative group">
-                  <button className="flex items-center gap-2 p-1 rounded-full hover:bg-gray-100 dark:hover:bg-primary-light transition-colors">
+                <div className="relative" ref={userMenuRef}>
+                  <button 
+                    onClick={() => setUserMenuOpen(!userMenuOpen)}
+                    className="flex items-center gap-2 p-1 rounded-full hover:bg-gray-100 dark:hover:bg-primary-light transition-colors"
+                  >
                     <img
                       src={user.avatar}
                       alt={user.nickname}
@@ -116,26 +136,29 @@ export default function Header() {
                   </button>
                   
                   {/* Dropdown */}
-                  <div className="absolute right-0 top-full mt-2 w-48 py-2 bg-white dark:bg-primary-light rounded-xl shadow-xl border border-gray-100 dark:border-primary opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                    <div className="px-4 py-2 border-b border-gray-100 dark:border-gray-700">
-                      <p className="text-sm font-medium text-gray-900 dark:text-white">{user.nickname}</p>
-                      <p className="text-xs text-gray-500">Lv.{user.level} · {user.exp}EXP</p>
+                  {userMenuOpen && (
+                    <div className="absolute right-0 top-full mt-2 w-48 py-2 bg-white dark:bg-primary-light rounded-xl shadow-xl border border-gray-100 dark:border-primary z-50">
+                      <div className="px-4 py-2 border-b border-gray-100 dark:border-gray-700">
+                        <p className="text-sm font-medium text-gray-900 dark:text-white">{user.nickname}</p>
+                        <p className="text-xs text-gray-500">Lv.{user.level} · {user.exp}EXP</p>
+                      </div>
+                      <Link
+                        to="/profile"
+                        onClick={() => setUserMenuOpen(false)}
+                        className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
+                      >
+                        <User className="w-4 h-4" />
+                        个人中心
+                      </Link>
+                      <button
+                        onClick={() => { logout(); setUserMenuOpen(false); }}
+                        className="flex items-center gap-2 w-full px-4 py-2 text-sm text-error hover:bg-error/5"
+                      >
+                        <LogOut className="w-4 h-4" />
+                        退出登录
+                      </button>
                     </div>
-                    <Link
-                      to="/profile"
-                      className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
-                    >
-                      <User className="w-4 h-4" />
-                      个人中心
-                    </Link>
-                    <button
-                      onClick={logout}
-                      className="flex items-center gap-2 w-full px-4 py-2 text-sm text-error hover:bg-error/5"
-                    >
-                      <LogOut className="w-4 h-4" />
-                      退出登录
-                    </button>
-                  </div>
+                  )}
                 </div>
               </>
             ) : (

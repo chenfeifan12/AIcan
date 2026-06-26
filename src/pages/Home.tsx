@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useAuthStore } from '../store/useAuthStore';
 import { useProgressStore } from '../store/useProgressStore';
@@ -13,6 +13,7 @@ export default function Home() {
   const { selectedLanguage, setSelectedLanguage, availableLanguages } = useLanguage();
   const { user, isAuthenticated } = useAuthStore();
   const { dailyGoal, todayMinutes } = useProgressStore();
+  const navigate = useNavigate();
 
   const progressPercent = Math.min((todayMinutes / dailyGoal) * 100, 100);
 
@@ -151,7 +152,7 @@ export default function Home() {
                 language={lang} 
                 course={courses.find(c => c.language === lang.code)}
                 index={index}
-                onSelect={() => setSelectedLanguage(lang)}
+                onSelect={() => { setSelectedLanguage(lang); navigate(`/learn/${lang.code}`); }}
               />
             ))}
           </div>
@@ -174,7 +175,7 @@ export default function Home() {
               return (
                 <div 
                   key={feature.title}
-                  className="card p-6 text-center group cursor-pointer"
+                  className="card p-6 text-center group"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   <div className={`w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br ${feature.color} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300`}>
@@ -304,13 +305,13 @@ function LanguageCard({ language, course, index, onSelect }: {
         </div>
       )}
 
-      <Link 
-        to={`/learn/${language.code}`}
+      <button 
+        onClick={(e) => { e.stopPropagation(); navigate(`/learn/${language.code}`); }}
         className="mt-4 flex items-center justify-center gap-2 w-full py-3 bg-primary/5 dark:bg-white/5 rounded-xl text-primary dark:text-white font-medium group-hover:bg-primary group-hover:text-white transition-all duration-300"
       >
         开始学习
         <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-      </Link>
+      </button>
     </div>
   );
 }

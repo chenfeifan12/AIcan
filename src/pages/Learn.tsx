@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useParams, Link, Navigate } from 'react-router-dom';
+import { useParams, Link, Navigate, useNavigate } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useProgressStore } from '../store/useProgressStore';
 import { courses, languageLevels, levelDescriptions } from '../data/courses';
@@ -13,6 +13,7 @@ export default function Learn() {
   const { language } = useParams<{ language: string }>();
   const { selectedLanguage, setSelectedLanguage, availableLanguages } = useLanguage();
   const { getProgress } = useProgressStore();
+  const navigate = useNavigate();
 
   const currentLanguage = language || selectedLanguage?.code || 'english';
   const course = courses.find(c => c.language === currentLanguage);
@@ -199,7 +200,8 @@ export default function Learn() {
                       return (
                         <div
                           key={lesson.id}
-                          className="flex items-center gap-3 p-3 rounded-xl bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                          onClick={() => navigate(`/learn/${currentLanguage}/${lesson.type}`)}
+                          className="flex items-center gap-3 p-3 rounded-xl bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer"
                         >
                           <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${typeColors[lesson.type]}`}>
                             <TypeIcon className="w-4 h-4" />
