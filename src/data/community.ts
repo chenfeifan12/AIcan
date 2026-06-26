@@ -1,3 +1,12 @@
+export interface PostComment {
+  id: string;
+  userId: string;
+  userName: string;
+  userAvatar: string;
+  content: string;
+  createdAt: string;
+}
+
 export interface Post {
   id: string;
   userId: string;
@@ -7,18 +16,9 @@ export interface Post {
   content: string;
   type: 'study_tip' | 'question' | 'achievement' | 'daily';
   likes: number;
-  comments: Comment[];
+  comments: PostComment[];
   createdAt: string;
   isLiked: boolean;
-}
-
-export interface Comment {
-  id: string;
-  userId: string;
-  userName: string;
-  userAvatar: string;
-  content: string;
-  createdAt: string;
 }
 
 export interface Topic {

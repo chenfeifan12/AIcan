@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useProgressStore } from '../store/useProgressStore';
@@ -15,12 +16,15 @@ export default function Learn() {
 
   const currentLanguage = language || selectedLanguage?.code || 'english';
   const course = courses.find(c => c.language === currentLanguage);
+
+  useEffect(() => {
+    const lang = availableLanguages.find(l => l.code === currentLanguage);
+    if (lang) setSelectedLanguage(lang);
+  }, [currentLanguage, availableLanguages, setSelectedLanguage]);
   
   if (!course) {
     return <Navigate to="/" replace />;
   }
-
-  setSelectedLanguage(availableLanguages.find(l => l.code === currentLanguage)!);
 
   const progress = getProgress(currentLanguage);
   const completedCount = progress?.completedLessons.length || 0;

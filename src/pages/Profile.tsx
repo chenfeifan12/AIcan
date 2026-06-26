@@ -3,12 +3,13 @@ import { Link } from 'react-router-dom';
 import { useAuthStore } from '../store/useAuthStore';
 import { useProgressStore } from '../store/useProgressStore';
 import { achievements, rarityColors } from '../data/achievements';
+import { courses } from '../data/courses';
 import ProgressRing from '../components/common/ProgressRing';
 import ProgressBar from '../components/common/ProgressBar';
 import { 
   Flame, Trophy, Calendar, Target, Zap, 
   BookOpen, Mic, Headphones, Brain, 
-  Settings, ChevronRight, Share2, Award
+  Settings, ChevronRight, Share2, Award, CheckCircle, Clock
 } from 'lucide-react';
 
 export default function Profile() {
@@ -185,7 +186,7 @@ export default function Profile() {
                 : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400'
             }`}
           >
-            成就
+            学习统计
           </button>
           <button
             onClick={() => setActiveTab('achievements')}
@@ -195,44 +196,95 @@ export default function Profile() {
                 : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400'
             }`}
           >
-            学习记录
+            成就徽章
           </button>
         </div>
 
-        {/* Achievements */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-          {[...unlockedAchievements, ...lockedAchievements].map((achievement, index) => {
-            const isUnlocked = unlockedAchievements.includes(achievement);
-            const colors = rarityColors[achievement.rarity];
-            
-            return (
-              <div
-                key={achievement.id}
-                className={`card p-4 text-center relative animate-slide-up ${!isUnlocked ? 'opacity-50' : ''}`}
-                style={{ animationDelay: `${index * 50}ms` }}
-              >
-                {!isUnlocked && (
-                  <div className="absolute inset-0 bg-gray-900/50 rounded-2xl flex items-center justify-center">
-                    <span className="text-3xl opacity-30">🔒</span>
+        {activeTab === 'stats' ? (
+          /* Learning Records */
+          <div className="space-y-4">
+            {courses.map(course => {
+              const courseProgress = progress[course.language];
+              const completedLessons = courseProgress?.completedLessons?.length || 0;
+              const totalLessons = course.units.reduce((acc, u) => acc + u.lessons.length, 0);
+              const coursePercent = totalLessons > 0 ? (completedLessons / totalLessons) * 100 : 0;
+              return (
+                <Link
+                  key={course.id}
+                  to={`/learn/${course.language}`}
+                  className="card p-5 flex items-center gap-4 hover:bg-gray-50 dark:hover:bg-primary-light/50 transition-colors"
+                >
+                  <span className="text-3xl">{course.flag}</span>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between mb-1">
+                      <h3 className="font-bold text-primary dark:text-white">{course.languageName}</h3>
+                      <span className="text-sm text-gray-500">{course.level} · {course.levelName}</span>
+                    </div>
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="flex-1 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                        <div 
+                          className="h-full bg-gradient-to-r from-accent to-success rounded-full transition-all"
+                          style={{ width: `${coursePercent}%` }}
+                        />
+                      </div>
+                      <span className="text-xs text-gray-500">{Math.round(coursePercent)}%</span>
+                    </div>
+                    <div className="flex items-center gap-4 text-xs text-gray-400">
+                      <span className="flex items-center gap-1">
+                        <CheckCircle className="w-3 h-3" />
+                        {completedLessons}/{totalLessons} 课
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <Clock className="w-3 h-3" />
+                        {courseProgress?.totalTime || 0}分钟
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <Flame className="w-3 h-3" />
+                        {courseProgress?.currentStreak || 0}天
+                      </span>
+                    </div>
                   </div>
-                )}
-                <div className={`w-14 h-14 mx-auto mb-3 rounded-2xl ${colors.bg} border-2 ${colors.border} flex items-center justify-center`}>
-                  <Award className={`w-7 h-7 ${isUnlocked ? 'text-gray-700' : 'text-gray-400'}`} />
+                  <ChevronRight className="w-5 h-5 text-gray-400" />
+                </Link>
+              );
+            })}
+          </div>
+        ) : (
+          /* Achievements Grid */
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+            {[...unlockedAchievements, ...lockedAchievements].map((achievement, index) => {
+              const isUnlocked = unlockedAchievements.includes(achievement);
+              const colors = rarityColors[achievement.rarity];
+              
+              return (
+                <div
+                  key={achievement.id}
+                  className={`card p-4 text-center relative animate-slide-up ${!isUnlocked ? 'opacity-50' : ''}`}
+                  style={{ animationDelay: `${index * 50}ms` }}
+                >
+                  {!isUnlocked && (
+                    <div className="absolute inset-0 bg-gray-900/50 rounded-2xl flex items-center justify-center">
+                      <span className="text-3xl opacity-30">🔒</span>
+                    </div>
+                  )}
+                  <div className={`w-14 h-14 mx-auto mb-3 rounded-2xl ${colors.bg} border-2 ${colors.border} flex items-center justify-center`}>
+                    <Award className={`w-7 h-7 ${isUnlocked ? 'text-gray-700' : 'text-gray-400'}`} />
+                  </div>
+                  <h3 className="font-bold text-sm text-primary dark:text-white mb-1">{achievement.name}</h3>
+                  <p className="text-xs text-gray-500 line-clamp-2">{achievement.description}</p>
+                  <span className={`inline-block mt-2 px-2 py-0.5 rounded-full text-xs font-medium capitalize ${
+                    achievement.rarity === 'legendary' ? 'bg-amber-100 text-amber-700' :
+                    achievement.rarity === 'epic' ? 'bg-purple-100 text-purple-700' :
+                    achievement.rarity === 'rare' ? 'bg-blue-100 text-blue-700' :
+                    'bg-gray-100 text-gray-600'
+                  }`}>
+                    {achievement.rarity === 'legendary' ? '传说' : achievement.rarity === 'epic' ? '史诗' : achievement.rarity === 'rare' ? '稀有' : '普通'}
+                  </span>
                 </div>
-                <h3 className="font-bold text-sm text-primary dark:text-white mb-1">{achievement.name}</h3>
-                <p className="text-xs text-gray-500 line-clamp-2">{achievement.description}</p>
-                <span className={`inline-block mt-2 px-2 py-0.5 rounded-full text-xs font-medium capitalize ${
-                  achievement.rarity === 'legendary' ? 'bg-amber-100 text-amber-700' :
-                  achievement.rarity === 'epic' ? 'bg-purple-100 text-purple-700' :
-                  achievement.rarity === 'rare' ? 'bg-blue-100 text-blue-700' :
-                  'bg-gray-100 text-gray-600'
-                }`}>
-                  {achievement.rarity}
-                </span>
-              </div>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
+        )}
       </div>
     </div>
   );

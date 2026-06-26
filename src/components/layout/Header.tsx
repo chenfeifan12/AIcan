@@ -9,6 +9,7 @@ export default function Header() {
   const { dailyGoal, todayMinutes } = useProgressStore();
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [notificationOpen, setNotificationOpen] = useState(false);
 
   const isHome = location.pathname === '/';
 
@@ -16,8 +17,15 @@ export default function Header() {
 
   const navLinks = [
     { path: '/', label: '首页' },
+    { path: '/learn/english', label: '学习' },
     { path: '/community', label: '社区' },
     { path: '/profile', label: '我的' },
+  ];
+
+  const notifications = [
+    { id: 1, text: '今日挑战还剩2小时！完成获得双倍经验', type: 'challenge' },
+    { id: 2, text: '你的连续学习天数已达3天，继续加油！', type: 'streak' },
+    { id: 3, text: '新课程「日语初级会话」已上线', type: 'new' },
   ];
 
   return (
@@ -67,6 +75,31 @@ export default function Header() {
                       style={{ width: `${progressPercent}%` }}
                     />
                   </div>
+                </div>
+
+                {/* Notification Bell */}
+                <div className="relative">
+                  <button
+                    onClick={() => setNotificationOpen(!notificationOpen)}
+                    className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-primary-light transition-colors relative"
+                  >
+                    <Bell className="w-5 h-5 text-gray-600 dark:text-gray-300" />
+                    <span className="absolute top-1 right-1 w-2 h-2 bg-error rounded-full" />
+                  </button>
+                  {notificationOpen && (
+                    <div className="absolute right-0 top-full mt-2 w-72 bg-white dark:bg-primary-light rounded-xl shadow-xl border border-gray-100 dark:border-primary overflow-hidden animate-slide-up z-50">
+                      <div className="p-3 border-b border-gray-100 dark:border-gray-700">
+                        <p className="font-medium text-sm text-primary dark:text-white">通知</p>
+                      </div>
+                      <div className="max-h-64 overflow-y-auto">
+                        {notifications.map(n => (
+                          <div key={n.id} className="p-3 border-b border-gray-50 dark:border-gray-800 last:border-0 hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer">
+                            <p className="text-sm text-gray-700 dark:text-gray-300">{n.text}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {/* User Menu */}

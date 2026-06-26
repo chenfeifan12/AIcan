@@ -247,7 +247,7 @@ export default function Home() {
             准备好开始你的语言学习之旅了吗？
           </h2>
           <p className="text-white/80 mb-8 text-lg">
-            加入 thousands of learners，开始你的多语言学习之路
+            加入 28,000+ 学习者，开始你的多语言学习之路
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/register" className="btn-primary text-lg py-4 px-8">

@@ -3,6 +3,7 @@ import { Home, BookOpen, Users, User } from 'lucide-react';
 
 const navItems = [
   { path: '/', icon: Home, label: '首页' },
+  { path: '/learn/english', icon: BookOpen, label: '学习' },
   { path: '/community', icon: Users, label: '社区' },
   { path: '/profile', icon: User, label: '我的' },
 ];

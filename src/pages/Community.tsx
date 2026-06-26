@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuthStore } from '../store/useAuthStore';
-import { posts, topics, Post } from '../data/community';
+import { posts, topics, Post, PostComment } from '../data/community';
 import { 
   Heart, MessageCircle, Share2, Bookmark, 
   Plus, Search, TrendingUp, Clock, Users, Filter
@@ -13,6 +13,11 @@ export default function Community() {
   const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
   const [likedPosts, setLikedPosts] = useState<Set<string>>(new Set());
   const [bookmarkedPosts, setBookmarkedPosts] = useState<Set<string>>(new Set());
+  const [expandedPost, setExpandedPost] = useState<string | null>(null);
+  const [newComment, setNewComment] = useState('');
+  const [comments, setComments] = useState<Record<string, PostComment[]>>(
+    Object.fromEntries(posts.map(p => [p.id, p.comments]))
+  );
 
   const filteredPosts = selectedTopic 
     ? posts.filter(p => p.language === selectedTopic)
@@ -40,6 +45,23 @@ export default function Community() {
       }
       return newSet;
     });
+  };
+
+  const handleAddComment = (postId: string) => {
+    if (!newComment.trim() || !isAuthenticated) return;
+    const comment: PostComment = {
+      id: `c-new-${Date.now()}`,
+      userId: user?.id || 'anonymous',
+      userName: user?.nickname || '匿名',
+      userAvatar: user?.avatar || '',
+      content: newComment.trim(),
+      createdAt: new Date().toISOString()
+    };
+    setComments(prev => ({
+      ...prev,
+      [postId]: [...(prev[postId] || []), comment]
+    }));
+    setNewComment('');
   };
 
   const getLanguageTag = (lang: string) => {
@@ -175,7 +197,7 @@ export default function Community() {
 
                     {/* Post Actions */}
                     <div className="flex items-center gap-6 pt-3 border-t border-gray-100 dark:border-gray-800">
-                      <button
+                      <button 
                         onClick={() => handleLike(post.id)}
                         className={`flex items-center gap-2 transition-colors ${
                           isLiked ? 'text-error' : 'text-gray-400 hover:text-error'
@@ -184,9 +206,12 @@ export default function Community() {
                         <Heart className={`w-5 h-5 ${isLiked ? 'fill-current' : ''}`} />
                         <span className="text-sm">{post.likes + (isLiked ? 1 : 0)}</span>
                       </button>
-                      <button className="flex items-center gap-2 text-gray-400 hover:text-accent transition-colors">
+                      <button 
+                        onClick={() => setExpandedPost(expandedPost === post.id ? null : post.id)}
+                        className="flex items-center gap-2 text-gray-400 hover:text-accent transition-colors"
+                      >
                         <MessageCircle className="w-5 h-5" />
-                        <span className="text-sm">{post.comments.length}</span>
+                        <span className="text-sm">{(comments[post.id] || []).length}</span>
                       </button>
                       <button
                         onClick={() => handleBookmark(post.id)}
@@ -200,6 +225,47 @@ export default function Community() {
                         <Share2 className="w-5 h-5" />
                       </button>
                     </div>
+
+                    {/* Comments Section */}
+                    {expandedPost === post.id && (
+                      <div className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-800 animate-slide-up">
+                        {(comments[post.id] || []).map(comment => (
+                          <div key={comment.id} className="flex items-start gap-3 mb-3 last:mb-0">
+                            <img 
+                              src={comment.userAvatar} 
+                              alt={comment.userName}
+                              className="w-7 h-7 rounded-full mt-0.5" 
+                            />
+                            <div className="flex-1">
+                              <div className="flex items-center gap-2">
+                                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{comment.userName}</span>
+                                <span className="text-xs text-gray-400">{formatTime(comment.createdAt)}</span>
+                              </div>
+                              <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{comment.content}</p>
+                            </div>
+                          </div>
+                        ))}
+                        {isAuthenticated && (
+                          <div className="flex items-center gap-2 mt-3">
+                            <input
+                              type="text"
+                              value={newComment}
+                              onChange={(e) => setNewComment(e.target.value)}
+                              placeholder="写下你的评论..."
+                              className="flex-1 px-3 py-2 text-sm bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 outline-none focus:border-accent"
+                              onKeyDown={(e) => e.key === 'Enter' && handleAddComment(post.id)}
+                            />
+                            <button
+                              onClick={() => handleAddComment(post.id)}
+                              disabled={!newComment.trim()}
+                              className="px-4 py-2 text-sm bg-accent text-white rounded-lg hover:bg-accent-dark disabled:opacity-50 transition-colors"
+                            >
+                              发送
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </div>
                 );
               })}

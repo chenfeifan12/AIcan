@@ -110,18 +110,18 @@ export default function Sidebar() {
           </h3>
           <nav className="space-y-1">
             <Link
-              to="/bookmarks"
+              to="/learn/english"
               className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-primary-light transition-all duration-200"
             >
               <BookMarked className="w-4 h-4" />
-              <span className="text-sm font-medium">我的收藏</span>
+              <span className="text-sm font-medium">开始学习</span>
             </Link>
             <Link
-              to="/settings"
+              to="/community"
               className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-primary-light transition-all duration-200"
             >
               <Settings className="w-4 h-4" />
-              <span className="text-sm font-medium">设置</span>
+              <span className="text-sm font-medium">学习社区</span>
             </Link>
           </nav>
         </div>

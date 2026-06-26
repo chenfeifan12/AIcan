@@ -9,6 +9,9 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Learn from "./pages/Learn";
 import Module from "./pages/Module";
+import Grammar from "./pages/Grammar";
+import Speaking from "./pages/Speaking";
+import Listening from "./pages/Listening";
 import Profile from "./pages/Profile";
 import Community from "./pages/Community";
 
@@ -37,7 +40,10 @@ export default function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/learn/:language" element={<Learn />} />
-            <Route path="/learn/:language/:module" element={<Module />} />
+            <Route path="/learn/:language/vocabulary" element={<Module />} />
+            <Route path="/learn/:language/grammar" element={<Grammar />} />
+            <Route path="/learn/:language/speaking" element={<Speaking />} />
+            <Route path="/learn/:language/listening" element={<Listening />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/community" element={<Community />} />
           </Routes>
