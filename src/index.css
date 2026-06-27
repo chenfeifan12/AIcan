@@ -1,0 +1,268 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: 'Noto Sans SC', system-ui, sans-serif;
+  line-height: 1.6;
+  font-weight: 400;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  @apply bg-cream text-primary min-h-screen;
+}
+
+.dark body {
+  @apply bg-primary-dark text-cream;
+}
+
+@layer components {
+  .btn-primary {
+    @apply px-6 py-3 bg-accent text-white font-medium rounded-xl
+           hover:bg-accent-dark active:scale-95
+           transition-all duration-200 shadow-lg hover:shadow-xl;
+  }
+
+  @media (hover: hover) {
+    .btn-primary {
+      @apply hover:scale-105;
+    }
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 bg-primary text-white font-medium rounded-xl
+           hover:bg-primary-light active:scale-95
+           transition-all duration-200 shadow-lg hover:shadow-xl;
+  }
+
+  @media (hover: hover) {
+    .btn-secondary {
+      @apply hover:scale-105;
+    }
+  }
+
+  .btn-outline {
+    @apply px-6 py-3 border-2 border-primary text-primary font-medium rounded-xl
+           hover:bg-primary hover:text-white
+           transition-all duration-200;
+  }
+
+  .card {
+    @apply bg-white dark:bg-primary-light rounded-2xl shadow-lg
+           transition-all duration-300;
+  }
+
+  @media (hover: hover) {
+    .card {
+      @apply hover:shadow-xl hover:-translate-y-1;
+    }
+  }
+
+  .card-hover {
+    @apply hover:scale-105 hover:shadow-2xl;
+  }
+
+  @media (hover: none) {
+    .card-hover {
+      @apply scale-100 shadow-lg;
+    }
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 bg-white dark:bg-primary-light
+           border-2 border-gray-200 dark:border-primary-light
+           rounded-xl focus:border-accent focus:ring-4 focus:ring-accent/20
+           outline-none transition-all duration-200;
+  }
+
+  .badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium;
+  }
+
+  .badge-accent {
+    @apply bg-accent/10 text-accent;
+  }
+
+  .badge-success {
+    @apply bg-success/10 text-success;
+  }
+
+  .badge-error {
+    @apply bg-error/10 text-error;
+  }
+
+  .progress-ring {
+    @apply transform -rotate-90;
+  }
+
+  .language-flag {
+    @apply text-5xl shadow-md rounded-lg;
+  }
+
+  .section-title {
+    @apply text-2xl sm:text-3xl font-serif font-bold text-primary dark:text-cream;
+  }
+
+  .gradient-bg {
+    @apply bg-gradient-to-br from-primary via-primary-light to-primary-dark;
+  }
+
+  .glass-card {
+    @apply bg-white/80 dark:bg-primary-light/80 backdrop-blur-lg
+           rounded-2xl shadow-xl border border-white/20;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .animate-delay-100 {
+    animation-delay: 100ms;
+  }
+
+  .animate-delay-200 {
+    animation-delay: 200ms;
+  }
+
+  .animate-delay-300 {
+    animation-delay: 300ms;
+  }
+
+  .animate-delay-400 {
+    animation-delay: 400ms;
+  }
+
+  .animate-delay-500 {
+    animation-delay: 500ms;
+  }
+
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
+}
+
+/* Flip card animation */
+.card-flip {
+  perspective: 1000px;
+  cursor: pointer;
+}
+
+.card-flip-inner {
+  position: relative;
+  width: 100%;
+  min-height: 14rem;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+@media (min-width: 640px) {
+  .card-flip-inner {
+    min-height: 16rem;
+  }
+}
+
+.card-flip.flipped .card-flip-inner {
+  transform: rotateY(180deg);
+}
+
+.card-flip-front,
+.card-flip-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.card-flip-front {
+  background: white;
+}
+
+.dark .card-flip-front {
+  background: #1E293B;
+}
+
+.card-flip-back {
+  background: #1E293B;
+  transform: rotateY(180deg);
+  color: white;
+}
+
+.dark .card-flip-back {
+  background: #0F172A;
+}
+
+/* Page transition */
+.page-enter {
+  animation: pageEnter 0.3s ease-out;
+}
+
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Pulse glow for active states */
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 12px rgba(99, 102, 241, 0);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100 dark:bg-primary-dark;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 dark:bg-primary-light rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-400 dark:bg-primary;
+}
