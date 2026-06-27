@@ -135,7 +135,7 @@ export default function Community() {
           {/* Main Content */}
           <div className="lg:col-span-3">
             {/* Tabs */}
-            <div className="flex items-center gap-2 mb-6">
+            <div className="flex flex-wrap items-center gap-2 mb-6">
               {[
                 { id: 'latest', label: '最新', icon: Clock },
                 { id: 'hot', label: '热门', icon: TrendingUp },

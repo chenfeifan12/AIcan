@@ -104,7 +104,7 @@ export default function Header() {
                     <span className="absolute top-1 right-1 w-2 h-2 bg-error rounded-full" />
                   </button>
                   {notificationOpen && (
-                    <div className="absolute right-0 top-full mt-2 w-72 bg-white dark:bg-primary-light rounded-xl shadow-xl border border-gray-100 dark:border-primary overflow-hidden animate-slide-up z-50">
+                    <div className="absolute right-0 top-full mt-2 w-72 max-w-[calc(100vw-2rem)] bg-white dark:bg-primary-light rounded-xl shadow-xl border border-gray-100 dark:border-primary overflow-hidden animate-slide-up z-50">
                       <div className="p-3 border-b border-gray-100 dark:border-gray-700">
                         <p className="font-medium text-sm text-primary dark:text-white">通知</p>
                       </div>

@@ -73,7 +73,7 @@ export default function Home() {
               </div>
 
               {/* Stats */}
-              <div className="grid grid-cols-3 gap-4 mt-12">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-12">
                 <div className="text-center">
                   <div className="flex items-center justify-center gap-1 text-white mb-1">
                     <Users className="w-4 h-4" />
@@ -193,7 +193,7 @@ export default function Home() {
       {/* Daily Challenge */}
       <section className="py-16 bg-white dark:bg-primary-dark">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="relative overflow-hidden bg-gradient-to-r from-accent to-accent-dark rounded-3xl p-8 lg:p-12">
+          <div className="relative overflow-hidden bg-gradient-to-r from-accent to-accent-dark rounded-3xl p-6 lg:p-12">
             <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2" />
             
             <div className="relative grid lg:grid-cols-2 gap-8 items-center">
@@ -218,7 +218,7 @@ export default function Home() {
               </div>
               
               <div className="flex justify-center">
-                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center">
+                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center">
                   <div className="text-6xl font-bold text-white mb-2">2x</div>
                   <p className="text-white/80">经验加成</p>
                   <div className="flex items-center justify-center gap-4 mt-6">

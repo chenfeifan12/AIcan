@@ -85,7 +85,7 @@ export default function Learn() {
           </p>
 
           {/* Stats */}
-          <div className="grid grid-cols-4 gap-4 max-w-lg animate-slide-up" style={{ animationDelay: '200ms' }}>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-lg animate-slide-up" style={{ animationDelay: '200ms' }}>
             <div className="bg-white/10 backdrop-blur-sm rounded-xl p-3 text-center">
               <Clock className="w-5 h-5 text-white/60 mx-auto mb-1" />
               <p className="text-white font-bold">{course.totalHours}h</p>

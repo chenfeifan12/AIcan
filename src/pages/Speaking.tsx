@@ -154,7 +154,7 @@ export default function Speaking() {
           </div>
           <h2 className="text-2xl font-bold text-primary dark:text-white mb-2">口语练习完成！</h2>
           <p className="text-gray-500 mb-6">继续加油，多开口才能进步！</p>
-          <div className="flex gap-4">
+          <div className="flex flex-col sm:flex-row gap-4">
             <Link to={`/learn/${currentLanguage}`} className="btn-outline flex-1 flex items-center justify-center gap-2">
               <Home className="w-4 h-4" />
               返回课程
