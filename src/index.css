@@ -25,14 +25,26 @@ body {
 @layer components {
   .btn-primary {
     @apply px-6 py-3 bg-accent text-white font-medium rounded-xl
-           hover:bg-accent-dark hover:scale-105 active:scale-95
+           hover:bg-accent-dark active:scale-95
            transition-all duration-200 shadow-lg hover:shadow-xl;
+  }
+
+  @media (hover: hover) {
+    .btn-primary {
+      @apply hover:scale-105;
+    }
   }
 
   .btn-secondary {
     @apply px-6 py-3 bg-primary text-white font-medium rounded-xl
-           hover:bg-primary-light hover:scale-105 active:scale-95
+           hover:bg-primary-light active:scale-95
            transition-all duration-200 shadow-lg hover:shadow-xl;
+  }
+
+  @media (hover: hover) {
+    .btn-secondary {
+      @apply hover:scale-105;
+    }
   }
 
   .btn-outline {
@@ -94,7 +106,7 @@ body {
   }
 
   .section-title {
-    @apply text-3xl font-serif font-bold text-primary dark:text-cream;
+    @apply text-2xl sm:text-3xl font-serif font-bold text-primary dark:text-cream;
   }
 
   .gradient-bg {

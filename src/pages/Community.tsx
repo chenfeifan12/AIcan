@@ -181,10 +181,10 @@ export default function Community() {
                         className="w-10 h-10 rounded-full" 
                       />
                       <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-1">
+                        <div className="flex flex-wrap items-center gap-2 mb-1">
                           <span className="font-medium text-primary dark:text-white">{post.userName}</span>
-                          <span className={`px-2 py-0.5 rounded text-xs ${langTag.class}`}>{langTag.label}</span>
-                          <span className={`px-2 py-0.5 rounded text-xs ${typeTag.class}`}>{typeTag.label}</span>
+                          <span className={`px-2 py-0.5 rounded text-xs whitespace-nowrap ${langTag.class}`}>{langTag.label}</span>
+                          <span className={`px-2 py-0.5 rounded text-xs whitespace-nowrap ${typeTag.class}`}>{typeTag.label}</span>
                         </div>
                         <p className="text-xs text-gray-400">{formatTime(post.createdAt)}</p>
                       </div>
@@ -196,7 +196,7 @@ export default function Community() {
                     </p>
 
                     {/* Post Actions */}
-                    <div className="flex items-center gap-6 pt-3 border-t border-gray-100 dark:border-gray-800">
+                    <div className="flex items-center gap-3 sm:gap-6 pt-3 border-t border-gray-100 dark:border-gray-800">
                       <button 
                         onClick={() => handleLike(post.id)}
                         className={`flex items-center gap-2 transition-colors ${

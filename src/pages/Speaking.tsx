@@ -200,7 +200,7 @@ export default function Speaking() {
       </div>
 
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="card p-8 text-center">
+        <div className="card p-6 sm:p-8 text-center">
           <span className="inline-block px-3 py-1 bg-orange-100 text-orange-600 rounded-full text-sm font-medium mb-6">
             口语练习
           </span>

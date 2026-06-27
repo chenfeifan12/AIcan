@@ -35,7 +35,7 @@ export default function Home() {
           <div className="absolute top-40 right-1/4 w-48 h-48 bg-accent/10 rounded-full blur-2xl animate-float" style={{ animationDelay: '2s' }} />
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-24">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left Content */}
             <div className="text-center lg:text-left animate-slide-up">
@@ -44,7 +44,7 @@ export default function Home() {
                 <span className="text-sm text-white/90">开启你的语言学习之旅</span>
               </div>
               
-              <h1 className="text-4xl lg:text-6xl font-serif font-bold text-white mb-6 leading-tight">
+              <h1 className="text-3xl sm:text-4xl lg:text-6xl font-serif font-bold text-white mb-6 leading-tight">
                 环球语言
                 <span className="block text-accent">学府</span>
               </h1>
@@ -136,7 +136,7 @@ export default function Home() {
       </section>
 
       {/* Language Selection */}
-      <section className="py-16 bg-white dark:bg-primary-dark">
+      <section className="py-12 sm:py-16 bg-white dark:bg-primary-dark">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="section-title mb-4">选择你的学习语言</h2>
@@ -160,7 +160,7 @@ export default function Home() {
       </section>
 
       {/* Features */}
-      <section className="py-16 bg-cream dark:bg-primary-dark/50">
+      <section className="py-12 sm:py-16 bg-cream dark:bg-primary-dark/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="section-title mb-4">沉浸式学习体验</h2>
@@ -191,7 +191,7 @@ export default function Home() {
       </section>
 
       {/* Daily Challenge */}
-      <section className="py-16 bg-white dark:bg-primary-dark">
+      <section className="py-12 sm:py-16 bg-white dark:bg-primary-dark">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative overflow-hidden bg-gradient-to-r from-accent to-accent-dark rounded-3xl p-6 lg:p-12">
             <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2" />
@@ -242,9 +242,9 @@ export default function Home() {
       </section>
 
       {/* CTA */}
-      <section className="py-16 gradient-bg">
+      <section className="py-12 sm:py-16 gradient-bg">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl lg:text-4xl font-serif font-bold text-white mb-6">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold text-white mb-6">
             准备好开始你的语言学习之旅了吗？
           </h2>
           <p className="text-white/80 mb-8 text-lg">

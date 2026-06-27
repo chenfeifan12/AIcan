@@ -70,10 +70,10 @@ export default function Learn() {
   return (
     <div className="min-h-screen pb-20 lg:pb-0">
       {/* Header */}
-      <div className="gradient-bg py-12">
+      <div className="gradient-bg py-8 sm:py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-4 mb-6 animate-slide-up">
-            <span className="text-6xl">{course.flag}</span>
+            <span className="text-5xl sm:text-6xl">{course.flag}</span>
             <div>
               <h1 className="text-3xl font-serif font-bold text-white">{course.languageName}</h1>
               <p className="text-white/70">{course.level} · {course.levelName}</p>
@@ -118,7 +118,7 @@ export default function Learn() {
             <span className="badge badge-success">{Math.round(overallProgress)}% 完成</span>
           </div>
           <ProgressBar value={overallProgress} color="accent" size="lg" />
-          <div className="flex justify-between mt-2 text-sm text-gray-500">
+          <div className="flex flex-col sm:flex-row sm:justify-between mt-2 text-sm text-gray-500 gap-1">
             <span>已完成 {completedCount} / {totalLessons} 节课程</span>
             <span>距离下一等级还需 {Math.ceil((100 - overallProgress))}%</span>
           </div>

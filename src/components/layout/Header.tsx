@@ -60,7 +60,7 @@ export default function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-4 lg:gap-8">
             {navLinks.map((link) => (
               <Link
                 key={link.path}
@@ -77,7 +77,7 @@ export default function Header() {
           </nav>
 
           {/* Right Section */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 sm:gap-4">
             {isAuthenticated && user ? (
               <>
                 {/* Daily Progress */}

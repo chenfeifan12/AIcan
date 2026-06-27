@@ -171,7 +171,7 @@ export default function Grammar() {
         )}
 
         {/* Exercise */}
-        <div className="card p-8">
+        <div className="card p-6 sm:p-8">
           <div className="text-center mb-8">
             <span className="inline-block px-3 py-1 bg-purple-100 text-purple-600 rounded-full text-sm font-medium mb-4">
               第 {currentExerciseIndex + 1} 题

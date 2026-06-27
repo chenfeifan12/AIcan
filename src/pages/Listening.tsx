@@ -163,7 +163,7 @@ export default function Listening() {
 
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Audio Player */}
-        <div className="card p-8 mb-8 text-center">
+        <div className="card p-6 sm:p-8 mb-8 text-center">
           <span className="inline-block px-3 py-1 bg-green-100 text-green-600 rounded-full text-sm font-medium mb-6">
             第 {currentQuestionIndex + 1} 题
           </span>
@@ -189,7 +189,7 @@ export default function Listening() {
         </div>
 
         {/* Question */}
-        <div className="card p-8">
+        <div className="card p-6 sm:p-8">
           <h2 className="text-xl font-bold text-primary dark:text-white mb-6 text-center">
             {currentQuestion.question}
           </h2>

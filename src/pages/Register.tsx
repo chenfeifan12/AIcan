@@ -92,7 +92,7 @@ export default function Register() {
       </div>
 
       {/* Right Side - Form */}
-      <div className="flex-1 flex items-center justify-center p-8">
+      <div className="flex-1 flex items-center justify-center p-4 sm:p-8">
         <div className="w-full max-w-md animate-slide-up">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 mb-8">
@@ -102,7 +102,7 @@ export default function Register() {
             <span className="font-serif font-bold text-2xl text-primary">LinguaFlow</span>
           </Link>
 
-          <h1 className="text-3xl font-serif font-bold text-primary mb-2">创建账号</h1>
+          <h1 className="text-2xl sm:text-3xl font-serif font-bold text-primary mb-2">创建账号</h1>
           <p className="text-gray-500 mb-8">开始你的语言学习之旅</p>
 
           {error && (
