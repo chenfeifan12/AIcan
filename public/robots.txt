@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 Disallow: /api/
-Sitemap: https://8297187a132b4a.lhr.life/sitemap.xml
+Sitemap: https://8e6cfe49738814.lhr.life/sitemap.xml
